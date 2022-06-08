@@ -1,4 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
+const AutoImport = require("unplugin-auto-import/webpack");
+const Components = require("unplugin-vue-components/webpack");
+const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
 const path = require("path");
 
 const isNoOnline = false;
@@ -42,7 +45,7 @@ module.exports = defineConfig({
     sourceMap: true, // 开启 CSS source maps?
     loaderOptions: {
       sass: {
-        additionalData: `@import "~@/assets/css/_var.scss";`,
+        additionalData: `@import "~@/render/css/var/_var.scss";`,
       },
       css: {
         // 启用 CSS modules ,默认以 .module 结尾的文件为 CSS modules
@@ -81,6 +84,15 @@ module.exports = defineConfig({
 
   //  * 由于使用的是Vue CLI Plugin Electron Builder，打包的配置需要放在vue.config.js中,否则使用默认package.json文件中
   pluginOptions: {
+    // element plus 按需导入
+    AutoImport: AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components: Components({
+      resolvers: [ElementPlusResolver()],
+    }),
+
+    // https://www.electron.build/
     electronBuilder: {
       // 设置编译后的主文件名,不设置为 main 中的字段会警告
       chainWebpackMainProcess: (config) => {
@@ -114,8 +126,15 @@ module.exports = defineConfig({
       // 	//打包时候包含的包文件
       // 	'**/*'
       // ],
+      // 所有平台：7z, zip, tar.xz, tar.lz, tar.gz, tar.bz2, dir（解压目录）。
       builderOptions: {
         win: {
+          // ['msi', 'nsis']
+          // nsis安装程序、
+          // nsis-web（Web 安装程序）、
+          // portable（无需安装的便携式应用程序）、
+          // AppX（Windows 商店）、
+          // Squirrel.Windows
           target: [
             {
               target: "nsis", // 利用nsis制作安装程序,打包文件的后缀为exe
@@ -124,8 +143,8 @@ module.exports = defineConfig({
                 "ia32", // 32位
               ],
             },
-          ], // ['msi', 'nsis']
-          icon: "build/icons/favicon.ico",
+          ],
+          icon: "build-assets/icons/icon.ico",
         },
         nsis: {
           oneClick: false, // 是否一键安装
@@ -133,9 +152,9 @@ module.exports = defineConfig({
           perMachine: true, // 是否开启安装时权限限制（此电脑或当前用户）true 表示此电脑，false代表当前用户
           allowToChangeInstallationDirectory: true, // 允许修改安装目录
           allowElevation: true, // 允许请求提升。 如果为false，则用户必须使用提升的权限重新启动安装程序。
-          installerIcon: "./build-assets/icons/favicon.ico", // 安装图标
-          uninstallerIcon: "./build-assets/icons/favicon.ico", // 卸载图标
-          installerHeaderIcon: "./build-assets/icons/favicon.ico", // 安装时头部图标
+          installerIcon: "./build-assets/icons/icon.ico", // 安装图标
+          uninstallerIcon: "./build-assets/icons/icon.ico", // 卸载图标
+          installerHeaderIcon: "./build-assets/icons/icon.ico", // 安装时头部图标
           createDesktopShortcut: true, // 创建桌面图标
           createStartMenuShortcut: true, // 创建开始菜单图标
           shortcutName: "抢购", // 快捷方式名称
@@ -143,13 +162,14 @@ module.exports = defineConfig({
           // include: 'build/script/installer.nsh', // 包含的自定义nsis脚本 这个对于构建需求严格得安装过程相当有用。
           // script: 'build/script/installer.nsh' // NSIS脚本的路径，用于自定义安装程序。 默认为build / installer.nsi
         },
+        // macOS : dmg, pkg, mas, mas-dev.
         mac: {
           target: ["dmg", "zip"],
           category: "public.app-category.utilities",
         },
         dmg: {
           background: "build/背景.jpg",
-          icon: "build/icons/icon.icns",
+          icon: "build-assets/icons/icon.icns",
           iconSize: 100,
           artifactName: "ms.dmg",
           contents: [

@@ -2,7 +2,7 @@ name: deploy #action名称
 
 on:
   push:
-    branches: [master] # master 分支有 push 时触发
+    branches: [dev] # master 分支有 push 时触发
 
 jobs:
   deploy:

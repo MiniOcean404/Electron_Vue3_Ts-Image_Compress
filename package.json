@@ -11,7 +11,7 @@
     "commit": "cz",
     "clean": "rimraf node_modules &&  yarn cache clean",
     "prettier-format": "prettier --write  **/*.{scss,css} **/*.{vue,ts,ts}",
-    "eslint-fix": "eslint --ext .vue --ext .ts  src/*/** --fix",
+    "eslint-fix": "eslint  src/* --ext .vue --ext .ts --fix",
     "prepare-husky": "yarn husky install",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -20,9 +20,12 @@
   "main": "background.js",
   "dependencies": {
     "@electron/remote": "^2.0.8",
+    "@vueuse/core": "^8.6.0",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.3",
+    "@element-plus/icons-vue": "^2.0.5",
+    "element-plus": "^2.2.4",
     "normalize.css": "^8.0.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
@@ -59,6 +62,8 @@
     "sass-loader": "^13.0.0",
     "ts-loader": "8.2.0",
     "typescript": "~4.7.3",
+    "unplugin-auto-import": "^0.8.7",
+    "unplugin-vue-components": "^0.19.6",
     "vue-cli-plugin-electron-builder": "~2.1.1"
   },
   "browserslist": [
