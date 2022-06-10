@@ -25,6 +25,8 @@
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.3",
+    "electron-log": "^4.4.7",
+    "electron-updater": "^5.0.1",
     "element-plus": "^2.2.4",
     "normalize.css": "^8.0.1",
     "vue": "^3.2.13",

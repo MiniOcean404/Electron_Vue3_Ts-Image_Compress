@@ -1,3 +1,4 @@
+import initAutoUpdate from "@/main/config/auto-update";
 import browserWindowProp from "@/main/config/browser-window-prop";
 import initDevTools from "@/main/config/dev-tools";
 import initElectronRemote from "@/main/config/electron-remote";
@@ -14,6 +15,7 @@ export default async function createWindow() {
   // 可以让主进程打开文件或者一个链接;
   // win.loadURL(`www.baidu.com`)
 
+  await initAutoUpdate();
   await initElectronRemote(win);
   await initDevTools(win);
   initTary(win);
