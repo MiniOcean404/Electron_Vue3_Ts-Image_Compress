@@ -147,10 +147,12 @@ module.exports = defineConfig({
           // Squirrel.Windows
           target: [
             {
-              target: "nsis", // 利用nsis制作安装程序,打包文件的后缀为exe
+              target: "nsis", // 利用nsis制作安装程序,打包文件的后缀为exe，默认 x64 位
               arch: [
                 "x64", // 64位
                 "ia32", // 32位
+                "armv7l",
+                "arm64",
               ],
             },
           ],
