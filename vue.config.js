@@ -100,11 +100,22 @@ module.exports = defineConfig({
       },
       // 是否集成Node
       nodeIntegration: true,
-      productName: "图片压缩",
       appId: "com.image-compress.app",
+      // 安装后的应用名
+      productName: "图片压缩",
       copyright: "Copyright © 2021 miniOcean404", // 版权
       // "store" | "normal"| "maximum" 打包压缩情况(store 相对较快)，store 39749kb, maximum 39186kb
       compression: "store",
+      extraMetadata: {
+        // 打包线上应用，控制变量为 production，此设置会直接在打包的 package.json 中加入 env这个变量，并且把值设置为 production。可以在文件中引用 const pjson = require('./package.json');  此时 pjson.env 等于 'production'
+        env: "production",
+      },
+      publish: [
+        {
+          provider: "github", // 指定服务器类型，generic 通用服务器，也可以是 github 等
+          url: "http://xxxxx/", // 服务器地址
+        },
+      ],
       directories: {
         output: "dist_electron/",
       },
@@ -122,10 +133,9 @@ module.exports = defineConfig({
           to: "./extraFiles/**",
         },
       ],
-      // files: [
-      // 	//打包时候包含的包文件
-      // 	'**/*'
-      // ],
+      files: [
+        // 除了package.json中dependencies外，另外需要打包的文件添加到此处
+      ],
       // 所有平台：7z, zip, tar.xz, tar.lz, tar.gz, tar.bz2, dir（解压目录）。
       builderOptions: {
         win: {
@@ -164,14 +174,31 @@ module.exports = defineConfig({
         },
         // macOS : dmg, pkg, mas, mas-dev.
         mac: {
-          target: ["dmg", "zip"],
+          target: ["dmg", "zip", "pkg", "mas"],
+          icon: "build-assets/icons/icon.icns",
+          hardenedRuntime: true,
           category: "public.app-category.utilities",
+          entitlements: "electron-builder/entitlements.plist", // 申请可以操作系统权利
+          entitlementsInherit: "electron-builder/entitlements.plist",
+          provisioningProfile: "electron-builder/comalibabaslobs.provisionprofile",
+        },
+        pkg: {
+          isRelocatable: false,
+          overwriteAction: "upgrade",
+        },
+        mas: {
+          icon: "build-assets/icons/icon.icns",
+          hardenedRuntime: true,
+          entitlements: "electron-builder/entitlements.mas.plist",
+          entitlementsInherit: "electron-builder/entitlements.mas.plist",
         },
         dmg: {
-          background: "build-assets/icons/1024x1024.png",
           icon: "build-assets/icons/icon.icns",
+          background: "build-assets/icons/1024x1024.png",
           iconSize: 100,
+          sign: false,
           artifactName: "image-compress.dmg",
+          // mac 会有拖动图标安装的过程，这里配置图标的位置、大小、拖动的文件夹
           contents: [
             {
               x: 380,
@@ -191,12 +218,6 @@ module.exports = defineConfig({
           },
         },
       },
-      // publish: [
-      // 	{
-      // 		provider: 'github', // 服务器提供商 也可以是GitHub等等
-      // 		url: 'http://xxxxx/' // 服务器地址
-      // 	}
-      // ],
     },
   },
 });
