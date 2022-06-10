@@ -92,8 +92,5 @@
   "volta": {
     "node": "16.14.1",
     "yarn": "1.22.18"
-  },
-  "electronDownload": {
-    "mirror": "https://npm.taobao.org/mirrors/electron/"
   }
 }

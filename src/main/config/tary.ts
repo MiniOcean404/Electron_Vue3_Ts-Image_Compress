@@ -8,7 +8,8 @@ export default (win: BrowserWindow) => {
 
   // 鼠标移到托盘中应用程序的图标上时，显示的文本
   tray.setToolTip("图片压缩");
-  tray.setTitle("标题");
+  // 设置 iOS 标题
+  // tray.setTitle("标题");
 
   // 点击图标的响应事件
   // win.hide() 隐藏应用

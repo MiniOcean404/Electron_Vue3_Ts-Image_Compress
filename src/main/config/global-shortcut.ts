@@ -2,7 +2,7 @@ import { isOpenOrCloseDevtools } from "@/main/utils/devtool";
 import { BrowserWindow, globalShortcut } from "electron";
 
 export function regGlobalShortcut(win: BrowserWindow) {
-  globalShortcut.register("CommandOrControl + e", async () => {
+  globalShortcut.register("CmdOrCtrl + e", async () => {
     console.log("创建快捷键");
   });
 

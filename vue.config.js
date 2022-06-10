@@ -168,10 +168,10 @@ module.exports = defineConfig({
           category: "public.app-category.utilities",
         },
         dmg: {
-          background: "build/背景.jpg",
+          background: "build-assets/icons/1024x1024.png",
           icon: "build-assets/icons/icon.icns",
           iconSize: 100,
-          artifactName: "ms.dmg",
+          artifactName: "image-compress.dmg",
           contents: [
             {
               x: 380,

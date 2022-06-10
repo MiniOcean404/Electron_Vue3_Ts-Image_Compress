@@ -14,7 +14,7 @@ const template = [
           isOpenOrCloseDevtools(webContents);
         },
         // 添加快捷键
-        accelerator: "ctrl + shift + i",
+        accelerator: "CmdOrCtrl + shift + i",
       },
     ],
   },

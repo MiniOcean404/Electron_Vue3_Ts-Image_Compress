@@ -1,10 +1,10 @@
+import browserWindowProp from "@/main/config/browser-window-prop";
 import initDevTools from "@/main/config/dev-tools";
 import initElectronRemote from "@/main/config/electron-remote";
 import { regGlobalShortcut } from "@/main/config/global-shortcut";
 import createMenu from "@/main/config/menu";
 import initTary from "@/main/config/tary";
 import { BrowserWindow } from "electron";
-import browserWindowProp from "@/main/config/browser-window-prop";
 
 export default async function createWindow() {
   const win: BrowserWindow = new BrowserWindow(browserWindowProp);
